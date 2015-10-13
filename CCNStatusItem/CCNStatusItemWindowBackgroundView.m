@@ -55,17 +55,24 @@
     NSBezierPath *arrowPath      = [NSBezierPath bezierPath];
     NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:backgroundRect xRadius:cornerRadius yRadius:cornerRadius];
 
-    NSPoint leftPoint  = {NSWidth(backgroundRect)/2 - arrowWidth/2, NSMaxY(backgroundRect)};
-    NSPoint topPoint   = {NSWidth(backgroundRect)/2, NSMaxY(backgroundRect) + arrowHeight};
-    NSPoint rightPoint = {NSWidth(backgroundRect)/2 + arrowWidth/2, NSMaxY(backgroundRect)};
+    CGRect screenRect = [[NSScreen mainScreen] frame];
+    CGRect statusFrame = [[[NSApp currentEvent] window] frame];
+          
+    CGFloat correctionX = 0;
+    if ((NSMaxX(statusFrame) + NSWidth(self.bounds) / 2) > NSMaxX(screenRect)) {
+    correctionX = (NSMaxX(statusFrame) + self.bounds.size.width/2) - NSMaxX(screenRect);
+    }
+    NSPoint leftPoint  = {NSWidth(backgroundRect)/2 - arrowWidth/2 + correctionX, NSMaxY(backgroundRect)};
+    NSPoint topPoint   = {NSWidth(backgroundRect)/2 + correctionX, NSMaxY(backgroundRect) + arrowHeight};
+    NSPoint rightPoint = {NSWidth(backgroundRect)/2 + arrowWidth/2 + correctionX, NSMaxY(backgroundRect)};
 
     [arrowPath moveToPoint:leftPoint];
     [arrowPath curveToPoint:topPoint
-              controlPoint1: NSMakePoint(NSWidth(backgroundRect)/2 - arrowWidth/4, NSMaxY(backgroundRect))
-              controlPoint2: NSMakePoint(NSWidth(backgroundRect)/2 - arrowWidth/7, NSMaxY(backgroundRect) + arrowHeight)];
+              controlPoint1: NSMakePoint(NSWidth(backgroundRect)/2 - arrowWidth/4 + correctionX, NSMaxY(backgroundRect))
+              controlPoint2: NSMakePoint(NSWidth(backgroundRect)/2 - arrowWidth/7  + correctionX, NSMaxY(backgroundRect) + arrowHeight)];
     [arrowPath curveToPoint:rightPoint
-              controlPoint1: NSMakePoint(NSWidth(backgroundRect)/2 + arrowWidth/7, NSMaxY(backgroundRect) + arrowHeight)
-              controlPoint2: NSMakePoint(NSWidth(backgroundRect)/2 + arrowWidth/4, NSMaxY(backgroundRect))];
+              controlPoint1: NSMakePoint(NSWidth(backgroundRect)/2 + arrowWidth/7 + correctionX, NSMaxY(backgroundRect) + arrowHeight)
+              controlPoint2: NSMakePoint(NSWidth(backgroundRect)/2 + arrowWidth/4 + correctionX, NSMaxY(backgroundRect))];
     [arrowPath lineToPoint:leftPoint];
     [arrowPath closePath];
 
