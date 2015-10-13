@@ -93,6 +93,8 @@ typedef void (^CCNStatusItemWindowAnimationCompletion)(void);
 
 - (void)updateWindowFrame {
     CGRect statusItemRect = [[self.statusItemView.statusItem.button window] frame];
+    CGRect screenRect = [[NSScreen mainScreen] frame];
+    
     CGFloat correctionX = 0;
     if ((NSMaxX(statusItemRect) + NSWidth(self.window.frame)/2) > NSMaxX(screenRect)) {
       correctionX = (NSMaxX(statusItemRect) + NSWidth(self.window.frame)/2) - NSMaxX(screenRect);
