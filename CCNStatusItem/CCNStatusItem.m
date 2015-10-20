@@ -240,6 +240,7 @@ static NSString *const CCNStatusItemWindowConfigurationPinnedPath = @"windowConf
     NSRect buttonWindowFrame = button.window.frame;
     NSRect statusItemFrame = NSMakeRect(0.0, 0.0, NSWidth(buttonWindowFrame), NSHeight(buttonWindowFrame));
     self.dropView = [[CCNStatusItemDropView alloc] initWithFrame:statusItemFrame];
+    self.dropView.layer.backgroundColor = [NSColor clearColor].CGColor;
     self.dropView.statusItem = self;
     self.dropView.dropTypes = self.dropTypes;
     self.dropView.dropHandler = self.dropHandler;
