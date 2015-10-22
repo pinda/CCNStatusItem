@@ -55,12 +55,9 @@
     NSBezierPath *arrowPath      = [NSBezierPath bezierPath];
     NSBezierPath *backgroundPath = [NSBezierPath bezierPathWithRoundedRect:backgroundRect xRadius:cornerRadius yRadius:cornerRadius];
 
-    CGRect screenRect = [[NSScreen mainScreen] frame];
-    CGRect statusFrame = [[[NSApp currentEvent] window] frame];
-          
     CGFloat correctionX = 0;
-    if ((NSMaxX(statusFrame) + NSWidth(self.bounds) / 2) > NSMaxX(screenRect)) {
-    correctionX = (NSMaxX(statusFrame) + self.bounds.size.width/2) - NSMaxX(screenRect);
+    if (self.windowConfiguration.arrowOffset > 0) {
+        correctionX = self.windowConfiguration.arrowOffset;
     }
     NSPoint leftPoint  = {NSWidth(backgroundRect)/2 - arrowWidth/2 + correctionX, NSMaxY(backgroundRect)};
     NSPoint topPoint   = {NSWidth(backgroundRect)/2 + correctionX, NSMaxY(backgroundRect) + arrowHeight};

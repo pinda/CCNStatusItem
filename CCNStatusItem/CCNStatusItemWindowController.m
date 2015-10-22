@@ -85,7 +85,7 @@ typedef void (^CCNStatusItemWindowAnimationCompletion)(void);
     // Set nil first to trigger window resize
     self.contentViewController = nil;
     self.contentViewController = contentViewController;
-    
+
     [self updateWindowFrame];
 }
 
@@ -94,11 +94,12 @@ typedef void (^CCNStatusItemWindowAnimationCompletion)(void);
 - (void)updateWindowFrame {
     CGRect statusItemRect = [[self.statusItemView.statusItem.button window] frame];
     CGRect screenRect = [[NSScreen mainScreen] frame];
-    
+
     CGFloat correctionX = 0;
     if ((NSMaxX(statusItemRect) + NSWidth(self.window.frame)/2) > NSMaxX(screenRect)) {
       correctionX = (NSMaxX(statusItemRect) + NSWidth(self.window.frame)/2) - NSMaxX(screenRect);
     }
+    self.windowConfiguration.arrowOffset = correctionX;
     CGRect windowFrame = NSMakeRect(NSMinX(statusItemRect) - NSWidth(self.window.frame)/2 + NSWidth(statusItemRect)/2 - correctionX,
                                     NSMinY(statusItemRect) - NSHeight(self.window.frame) - self.windowConfiguration.windowToStatusItemMargin,
                                     self.window.frame.size.width,

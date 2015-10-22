@@ -49,6 +49,7 @@ static const CGFloat CCNDefaultCornerRadius = 5.0;
 
 // status item window
 @property (assign, nonatomic) CGFloat windowToStatusItemMargin;                     // default: 2.0
+@property (assign, nonatomic) CGFloat arrowOffset;                                  // default: 0.0
 @property (assign, nonatomic) NSTimeInterval animationDuration;                     // default: 0.21
 @property (strong, nonatomic) NSColor *backgroundColor;								// default: [NSColor windowBackgroundColor]
 @property (assign, nonatomic) CCNPresentationTransition presentationTransition;     // default: CCNPresentationTransitionFade
